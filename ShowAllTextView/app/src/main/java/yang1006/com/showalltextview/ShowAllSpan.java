@@ -1,5 +1,7 @@
 package yang1006.com.showalltextview;
 
+import android.content.Context;
+import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.view.View;
 
@@ -12,9 +14,11 @@ import android.view.View;
 public class ShowAllSpan extends ClickableSpan {
 
     private OnAllSpanClickListener clickListener;
+    private boolean isPressed = false;
+    private Context context;
 
-
-    public ShowAllSpan(OnAllSpanClickListener clickListener){
+    public ShowAllSpan(Context context, OnAllSpanClickListener clickListener){
+        this.context = context;
         this.clickListener = clickListener;
     }
 
@@ -25,7 +29,22 @@ public class ShowAllSpan extends ClickableSpan {
         }
     }
 
+    public void setPressed(boolean pressed) {
+        isPressed = pressed;
+    }
+
     public interface OnAllSpanClickListener{
         void onClick(View widget);
+    }
+
+    @Override
+    public void updateDrawState(TextPaint ds) {
+        if (isPressed){
+            ds.bgColor = context.getResources().getColor(android.R.color.darker_gray);
+        }else {
+            ds.bgColor = context.getResources().getColor(android.R.color.transparent);
+        }
+        ds.setColor(context.getResources().getColor(android.R.color.holo_blue_light));
+        ds.setUnderlineText(false);
     }
 }
