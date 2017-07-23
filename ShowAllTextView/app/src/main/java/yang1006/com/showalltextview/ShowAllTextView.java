@@ -35,14 +35,14 @@ public class ShowAllTextView extends TextView {
     /**调用此方法才有效果*/
     public void setMyText(CharSequence text) {
         super.setText(text);
-        /** 会出现setText之后getLineCount()还是0的情况,这里延迟一点再判断添加 ...全文*/
+        /** 会出现setText之后getLineCount()还是0的情况*/
         if (!TextUtils.isEmpty(getText()) && getLineCount() <= 0){
-            new Handler().postDelayed(new Runnable() {
+            new Handler().post(new Runnable() {
                 @Override
                 public void run() {
                     addEllipsisAndAllAtEnd();
                 }
-            }, 50);
+            });
         }else {
             addEllipsisAndAllAtEnd();
         }
