@@ -1,13 +1,11 @@
 package yang1006.com.showalltextview;
 
 import android.content.Context;
-import android.os.Handler;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -36,16 +34,12 @@ public class ShowAllTextView extends TextView {
     public void setMyText(CharSequence text) {
         super.setText(text);
         /** 会出现setText之后getLineCount()还是0的情况*/
-        if (!TextUtils.isEmpty(getText()) && getLineCount() <= 0){
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    addEllipsisAndAllAtEnd();
-                }
-            });
-        }else {
-            addEllipsisAndAllAtEnd();
-        }
+        post(new Runnable() {
+            @Override
+            public void run() {
+                addEllipsisAndAllAtEnd();
+            }
+        });
     }
 
     /**调用此方法才有效果*/
